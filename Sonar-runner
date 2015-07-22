@@ -1,0 +1,58 @@
+   Install JavaScript sonar plugin in Sonar machine
+   
+    http://repository.codehaus.org/org/codehaus/sonar-plugins/javascript/sonar-javascript-plugin/1.3/sonar-javascript-plugin-1.3.jar
+
+             cd /var/lib/jenkins/plugins/sonar/
+
+             wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.1/sonar-runner-dist-2.1.zip
+
+              unzip sonar-runner-dist-2.1.zip
+
+              export SONAR_RUNNER_HOME=/var/lib/jenkins/plugins/sonar/sonar-runner-2.1
+              echo $SONAR_RUNNER_HOME
+
+              cd /var/lib/jenkins/plugins/sonar/sonar-runner-2.1/conf
+
+            Checkout JavaScript sources code:
+                svn co http://westsvn.westminster.abc.com/svn/trunk/applications/Portal/
+
+                 vi sonar-runner.properties (Property file needs to be configured as below)
+
+                   **Content of sonar-runner.properties  Begins***
+
+                     #----- Default Sonar server
+                        sonar.host.url=http://localhost:9000
+                 
+                     #----- MySQL   (Database can be anything like Oracle or PostgreSQL)
+                    sonar.jdbc.url=jdbc:mysql://10.250.92.60:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
+
+                     #----- Global database settings
+                     sonar.jdbc.username=sonar
+                    sonar.jdbc.password=sonar
+          
+                    #----- Default source code encoding
+                      sonar.sourceEncoding=UTF-8
+          
+                    #----- Security (when 'sonar.forceAuthentication' is set to 'true')
+                       sonar.login=admin
+                      sonar.password=admin
+
+                     # required metadata
+                        sonar.projectKey=Portal  (Project related name)
+                        sonar.projectName=Portal
+                        sonar.projectVersion=1.0
+                     # optional description
+                       sonar.projectDescription=Fake description
+
+                     # path to source directories (required)
+                        sonar.sources=axisedgePortal
+          
+                     # The value of the property must be the key of the language.
+                         sonar.language=js
+
+                     # Additional parameters
+                        sonar.my.property=value
+                              
+                  ../bin/sonar-runner – To run the sonar. 
+ 
+           Hope this will be helpful. Go ahead with Sonar for UI violation. 
